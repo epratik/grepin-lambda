@@ -7,6 +7,7 @@ export abstract class Constants{
     static separator = "/";
     static projectName = "gp";
     static serviceConfigName = "serviceConfig";
+    static fnGetUserId = "fnGetUserId";
 
     static getServiceConfigPath(): string {
         return this.separator + this.projectName + this.separator + process.env.NODE_ENV +
