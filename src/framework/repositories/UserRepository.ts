@@ -11,6 +11,7 @@ export class UserRepository implements IUserRepository {
 
     getUserId = async (emailAddress: string): Promise<number> => {
         const res = await this.dbHelper.callFunction(Constants.fnGetUserId, [emailAddress]);
-        return res[0] as number;
+        const item = res[0];
+        return item[Object.keys(item)[0]] as number;
     }
 }

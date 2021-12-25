@@ -14,7 +14,7 @@ export class PreTokenGenerationUseCase {
     addClaimsToToken = async (event: PreTokenGenerationTriggerEvent)
         : Promise<PreTokenGenerationTriggerEvent> => {
         
-        const userId = await this.userRepo.getUserId(event.userName);
+        const userId = await this.userRepo.getUserId(event.request.userAttributes['email']);
 
         event.response = {
             claimsOverrideDetails: {

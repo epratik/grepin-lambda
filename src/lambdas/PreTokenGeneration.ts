@@ -12,7 +12,7 @@ export const handler: PreTokenGenerationTriggerHandler = async (event: PreTokenG
     const logger: ILogger = diContainer.resolve("ILogger");
     const preTokenGenUseCase: PreTokenGenerationUseCase = diContainer.resolve("PreTokenGenerationUseCase");
 
-    if (event.triggerSource === "TokenGeneration_Authentication") {
+    if (event.triggerSource === "TokenGeneration_HostedAuth") {
         try {
             callback(null, await preTokenGenUseCase.addClaimsToToken(event))
         }

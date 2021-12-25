@@ -1,4 +1,4 @@
-service: cognito-auth #name of your service
+service: gp #name of your service
 provider:
   name: aws #cloud provider
   runtime: nodejs14.x  #runtime language and version
@@ -6,12 +6,12 @@ provider:
   region: us-west-2  # cloud provider region where service deploys and resides. choose your preferred region
   vpc:
     securityGroupIds:
-      - sg-016f2af191e046a50
+      - sg-039f695330a7ff22b
     subnetIds:
       - subnet-0bc84240d9e03925c
       - subnet-036d8e82f0dc9003a
 functions:
-  CST-PreTokenGenerationLambda:
+  cognito-pretokengeneration:
     handler: dist/src/lambdas/PreTokenGeneration.handler #Reference to file handler.js & exported function 'write'
     environment:
       NODE_ENV: dev
@@ -24,19 +24,19 @@ functions:
         - 'dist/**'
         - '!dist/src/lambdas'
         - 'dist/src/lambdas/PreTokenGeneration.js'
-  CST-PreSignUpLambda:
-    handler: dist/src/lambdas/PreSignUp.handler #Reference to file handler.js & exported function 'write'
-    environment:
-      NODE_ENV: dev
-    layers:
-      - { Ref: CommonLambdaLayer }
-    package:
-      individually: true
-      patterns:
-        - '!./**'
-        - 'dist/**'
-        - '!dist/src/lambdas'
-        - 'dist/src/lambdas/PreSignUp.js'
+  # CST-PreSignUpLambda:
+  #   handler: dist/src/lambdas/PreSignUp.handler #Reference to file handler.js & exported function 'write'
+  #   environment:
+  #     NODE_ENV: dev
+  #   layers:
+  #     - { Ref: CommonLambdaLayer }
+  #   package:
+  #     individually: true
+  #     patterns:
+  #       - '!./**'
+  #       - 'dist/**'
+  #       - '!dist/src/lambdas'
+  #       - 'dist/src/lambdas/PreSignUp.js'
 layers:
   Common:
     path: dependencies # required, path to layer contents on disk
