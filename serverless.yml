@@ -14,7 +14,10 @@ functions:
   cognito-pretokengeneration:
     handler: dist/src/lambdas/PreTokenGeneration.handler #Reference to file handler.js & exported function 'write'
     environment:
-      NODE_ENV: dev
+      NODE_ENV: dev,
+      LOG_LEVEL: error,
+      DB_USER: gp-user,
+      DB_NAME: grepin
     layers:
       - { Ref: CommonLambdaLayer }
     package:

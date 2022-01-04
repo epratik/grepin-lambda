@@ -18,7 +18,16 @@ export class SQLHelper implements ISQLHelper {
         {
             // const value = await this.configManager.getPostgreConnString;
             // Since lambda is in a private subnet, we cannot access internet. NAT gateway is costly.
-            this.conn = knex(JSON.parse(process.env.CONN_STRING!))
+            this.conn = knex({
+                client: "postgres",
+                connection: {
+                  database: process.env.DB_NAME,
+                  host: process.env.DB_HOST,
+                  password: process.env.DB_PASSWORD,
+                  port: 5432,
+                  user:process.env.DB_USER
+                }
+              })
         }
         else
             this.conn;
