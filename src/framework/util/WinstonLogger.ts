@@ -18,7 +18,8 @@ export class WinstonLogger implements ILogger {
       winston.loggers.add(Constants.loggerName, {
         transports: [
           new winston.transports.Console({
-            level: await this.configManager.getLogLevel,
+            // level: await this.configManager.getLogLevel,
+            level: process.env.LOG_LEVEL,
             format: format.combine(
               format.errors({ stack: true }),
               format.metadata(),
