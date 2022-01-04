@@ -17,7 +17,9 @@ functions:
       NODE_ENV: dev,
       LOG_LEVEL: error,
       DB_USER: gp-user,
-      DB_NAME: grepin
+      DB_NAME: grepin,
+      DB_HOST: empty,
+      DB_PASSWORD: empty
     layers:
       - { Ref: CommonLambdaLayer }
     package:
