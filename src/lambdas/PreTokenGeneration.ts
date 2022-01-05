@@ -12,12 +12,13 @@ export const handler: PreTokenGenerationTriggerHandler = async (event: PreTokenG
     const logger: ILogger = diContainer.resolve("ILogger");
     const preTokenGenUseCase: PreTokenGenerationUseCase = diContainer.resolve("PreTokenGenerationUseCase");
 
-    if (event.triggerSource === "TokenGeneration_HostedAuth") {
+    if (event.triggerSource === "TokenGeneration_HostedAuth" || event.triggerSource === "TokenGeneration_RefreshTokens" ||
+        event.triggerSource === "TokenGeneration_NewPasswordChallenge") {
         try {
             callback(null, await preTokenGenUseCase.addClaimsToToken(event))
         }
         catch (err) {
-           await logger.logError({ source: event.triggerSource, message: JSON.stringify(err) });
+            await logger.logError({ source: event.triggerSource, message: JSON.stringify(err) });
         }
     }
     else
