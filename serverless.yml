@@ -1,8 +1,9 @@
 service: gp #name of your service
 provider:
   name: aws #cloud provider
+  stage: prod
   runtime: nodejs14.x  #runtime language and version
-  role: arn:aws:iam::075760899250:role/gp-dev-role-lambda
+  role: arn:aws:iam::075760899250:role/gp-prod-role-lambda
   region: us-west-2  # cloud provider region where service deploys and resides. choose your preferred region
   vpc:
     securityGroupIds:
@@ -14,12 +15,12 @@ functions:
   cognito-pretokengeneration:
     handler: dist/src/lambdas/PreTokenGeneration.handler #Reference to file handler.js & exported function 'write'
     environment:
-      NODE_ENV: dev
+      NODE_ENV: prod
       LOG_LEVEL: error
       DB_USER: gp-user
       DB_NAME: grepin
-      DB_HOST: 
-      DB_PASSWORD: 
+      DB_HOST: empty
+      DB_PASSWORD: empty
     layers:
       - { Ref: CommonLambdaLayer }
     package:
@@ -29,6 +30,24 @@ functions:
         - 'dist/**'
         - '!dist/src/lambdas'
         - 'dist/src/lambdas/PreTokenGeneration.js'
+  cognito-presignup:
+    handler: dist/src/lambdas/PreSignUp.handler #Reference to file handler.js & exported function 'write'
+    environment:
+      NODE_ENV: prod
+      LOG_LEVEL: error
+      DB_USER: gp-user
+      DB_NAME: grepin
+      DB_HOST: empty
+      DB_PASSWORD: empty
+    layers:
+      - { Ref: CommonLambdaLayer }
+    package:
+      individually: true
+      patterns:
+        - '!./**'
+        - 'dist/**'
+        - '!dist/src/lambdas'
+        - 'dist/src/lambdas/PreSignUp.js'
   # CST-PreSignUpLambda:
   #   handler: dist/src/lambdas/PreSignUp.handler #Reference to file handler.js & exported function 'write'
   #   environment:

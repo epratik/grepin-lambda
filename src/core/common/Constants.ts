@@ -8,7 +8,9 @@ export abstract class Constants{
     static projectName = "gp";
     static serviceConfigName = "serviceConfig";
     static fnGetUserId = "fnGetUserId";
-
+    static spCreateUser = "spCreateUser";
+    static internalServerError = "Internal Server Error";
+    
     static getServiceConfigPath(): string {
         return this.separator + this.projectName + this.separator + process.env.NODE_ENV +
             this.separator + this.serviceConfigName
